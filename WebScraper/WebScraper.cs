@@ -12,31 +12,41 @@ namespace WebScraper
    {
       public async Task Crawl()
       {
-         var url = "https://www.emag.ro/televizoare/brand/wellington/c?ref=bc";
-         var httpClient = new HttpClient();
-         var html = await httpClient.GetStringAsync(url);
-         var htmlDocument = new HtmlDocument();
 
-         htmlDocument.LoadHtml(html);
-         List<HtmlNode> divsCardSectionMid = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Contains("card-section-mid")).ToList();
-         List<HtmlNode> divsCardSectionBtm = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Contains("card-section-btm")).ToList();
-         
-         try {
-            foreach(var div in divsCardSectionMid) {
-               var name = div.Descendants("a").FirstOrDefault().ChildAttributes("title").FirstOrDefault().Value;
-               var link = div.Descendants("a").FirstOrDefault().ChildAttributes("href").FirstOrDefault().Value;
+         for(int i = 1; i <= 10; i++) {
+
+            string url = $"https://www.emag.ro/desktop-pc/p{i}/c";
+            var httpClient = new HttpClient();
+            var html = await httpClient.GetStringAsync(url);
+            var htmlDocument = new HtmlDocument();
+
+            htmlDocument.LoadHtml(html);
+            List<HtmlNode> divsCardSection = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Contains("card-section-wrapper")).ToList();
+            //List<HtmlNode> divsCardSectionBtm = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Contains("card-section-btm")).ToList();
+
+
+            try {
+               for(int index = 1; index <= 60; index++) {
+                  var titleNodes = htmlDocument.DocumentNode.SelectNodes($"//*[@id=\"card_grid\"]/div[{index}]/div/div/div[2]/h2/a");
+                  var oldPriceNodes = htmlDocument.DocumentNode.SelectNodes($"//*[@id=\"card_grid\"]/div[{index}]/div/div/div[3]/div[2]/div/p[1]/s");
+                  var newPriceNodes = htmlDocument.DocumentNode.SelectNodes($"//*[@id=\"card_grid\"]/div[{index}]/div/div/div[3]/div[2]/div/p[2]/text()");
+
+                  string oldPrice = "", newPrice = "", name = "";
+
+                  if (titleNodes != null) {
+                     name = titleNodes.FirstOrDefault().Attributes["title"].Value;
+                  }
+                  if (oldPriceNodes != null) {
+                     oldPrice = oldPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", ".");
+                  }
+                  if(newPriceNodes != null) {
+                     newPrice = newPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", ".");
+                  }
+               }
+            } catch(Exception e) {
+               //throw e;
             }
-
-            foreach(var div in divsCardSectionBtm) {
-               var oldPrice = div.Descendants("div").Where(node => node.GetAttributeValue("class", "").Contains("pricing-old")).FirstOrDefault();//.FirstChild.GetDirectInnerText();
-               string newPrice = div.Descendants("p").Where(node => node.GetAttributeValue("class", "").Contains("new-price")).FirstOrDefault().FirstChild.GetDirectInnerText();
-               var atr = div.Attributes;
-            }
-         } catch(Exception e) {
-
-            throw e;
          }
-
 
       }
    }

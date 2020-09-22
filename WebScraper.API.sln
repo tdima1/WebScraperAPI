@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebScraper.API", "WebScraper.API\WebScraper.API.csproj", "{AC4C9048-621A-4223-9E47-517905AC560B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebScraper", "WebScraper\WebScraper.csproj", "{EDF037DD-6406-45E0-A281-B62E4A399196}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLWebScraper", "WebScraper\BLWebScraper.csproj", "{EDF037DD-6406-45E0-A281-B62E4A399196}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
