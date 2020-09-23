@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,8 @@ namespace WebScraper.API.Controllers
       [HttpGet]
       public async Task<IEnumerable<string>> Get()
       {
-         await scraper.Crawl();
+         //await scraper.Crawl();
+         var a = Assembly.GetExecutingAssembly().GetName().Name;
          return new string[] { "value1", "value2" };
       }
 
