@@ -85,5 +85,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebScraper.Data\WebScraper.Data.csproj">
+      <Project>{95162D7B-CEA4-4344-AC2F-D0F174DCB15C}</Project>
+      <Name>WebScraper.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

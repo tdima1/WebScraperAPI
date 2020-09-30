@@ -192,6 +192,10 @@
     <Compile Include="Migrations\20200923204121_InitialCreate.designer.cs">
       <DependentUpon>20200923204121_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20200930180342_AddedDateMigration.cs" />
+    <Compile Include="Migrations\20200930180342_AddedDateMigration.designer.cs">
+      <DependentUpon>20200930180342_AddedDateMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ProductContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

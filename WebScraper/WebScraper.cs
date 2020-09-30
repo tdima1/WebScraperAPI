@@ -5,13 +5,15 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using WebScraper.API.Data.Entities;
 
 namespace WebScraper
 {
    public class WebScraper
    {
-      public async Task Crawl()
+      public async Task<IEnumerable<Product>> Crawl()
       {
+         List<Product> products = new List<Product>();
 
          for(int i = 1; i <= 10; i++) {
 
@@ -30,23 +32,27 @@ namespace WebScraper
                   var oldPriceNodes = htmlDocument.DocumentNode.SelectNodes($"//*[@id=\"card_grid\"]/div[{index}]/div/div/div[3]/div[2]/div/p[1]/s");
                   var newPriceNodes = htmlDocument.DocumentNode.SelectNodes($"//*[@id=\"card_grid\"]/div[{index}]/div/div/div[3]/div[2]/div/p[2]/text()");
 
-                  string oldPrice = "", newPrice = "", name = "";
+                  Product prod = new Product();
+                  prod.Date = DateTime.Now.Date;
 
                   if (titleNodes != null) {
-                     name = titleNodes.FirstOrDefault().Attributes["title"].Value;
+                     prod.Name = titleNodes.FirstOrDefault().Attributes["title"].Value;
                   }
                   if (oldPriceNodes != null) {
-                     oldPrice = oldPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", ".");
+                     prod.OldPrice = Convert.ToInt32(oldPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", "").Trim());
                   }
                   if(newPriceNodes != null) {
-                     newPrice = newPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", ".");
+                     prod.NewPrice = Convert.ToInt32(newPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", "").Trim());
                   }
+
+                  products.Add(prod);
                }
             } catch(Exception e) {
                //throw e;
             }
          }
 
+         return products;
       }
    }
 }

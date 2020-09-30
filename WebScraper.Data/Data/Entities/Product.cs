@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebScraper.API.Data.Entities
 {
@@ -9,5 +10,7 @@ namespace WebScraper.API.Data.Entities
       public string Name { get; set; }
       public int OldPrice { get; set; }
       public int NewPrice { get; set; }
+
+      public DateTime Date { get; set; }
    }
 }

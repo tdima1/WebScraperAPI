@@ -24,6 +24,16 @@ namespace WebScraper.Data.Data
          _context.SaveChanges();
       }
 
+      public void Add(IEnumerable<Product> products)
+      {
+         foreach(Product p in products) {
+            if(p.Name != null) {
+               _context.Add(p);
+            }
+         }
+         _context.SaveChanges();
+      }
+
       public void Delete(int Id)
       {
          Product product = _context.Products.Find(Id);

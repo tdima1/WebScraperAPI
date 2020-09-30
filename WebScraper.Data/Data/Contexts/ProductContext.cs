@@ -12,7 +12,6 @@ namespace WebScraper.Data.Data.Contexts
    public class ProductContext : DbContext
    {
       private readonly IConfiguration _config;
-
       public DbSet<Product> Products { get; set; }
 
       public ProductContext(DbContextOptions options, IConfiguration config) : base(options)
@@ -32,7 +31,8 @@ namespace WebScraper.Data.Data.Contexts
                Id = 1,
                Name = "Default Entity",
                OldPrice = 0,
-               NewPrice = 0
+               NewPrice = 0,
+               Date = DateTime.MinValue
             });
       }
 
