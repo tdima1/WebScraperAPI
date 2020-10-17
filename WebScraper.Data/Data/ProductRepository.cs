@@ -55,7 +55,7 @@ namespace WebScraper.Data.Data
       public IEnumerable<Product> GetProducts()
       {
          return from p in _context.Products
-                orderby p.NewPrice
+                orderby _context.PricesForProduct.Find(p.Id).NewPrice
                 select p;
       }
    }

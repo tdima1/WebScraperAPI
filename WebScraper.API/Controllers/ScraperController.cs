@@ -27,8 +27,8 @@ namespace WebScraper.API.Controllers
       public async Task<IEnumerable<string>> Get()
       {
          //should get data from db.
-         IEnumerable<Product> products = await scraper.Crawl();
-         _repository.Add(products);
+         //IEnumerable<Product> products = await scraper.Crawl();
+         //_repository.Add(products);
          //var a = Assembly.GetExecutingAssembly().GetName().Name;
          return new string[] { "value1", "value2" };
       }
@@ -37,7 +37,7 @@ namespace WebScraper.API.Controllers
       [HttpGet("{id}", Name = "Get")]
       public string Get(int id)
       {
-         //should get data from 1 single product
+         //should get data from 1 single product with all the prices, on all the dates.
          return "value";
       }
 

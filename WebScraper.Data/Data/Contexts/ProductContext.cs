@@ -13,6 +13,7 @@ namespace WebScraper.Data.Data.Contexts
    {
       private readonly IConfiguration _config;
       public DbSet<Product> Products { get; set; }
+      public DbSet<Price> PricesForProduct { get; set; }
 
       public ProductContext(DbContextOptions options, IConfiguration config) : base(options)
       {

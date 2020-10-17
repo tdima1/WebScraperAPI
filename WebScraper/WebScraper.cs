@@ -33,16 +33,16 @@ namespace WebScraper
                   var newPriceNodes = htmlDocument.DocumentNode.SelectNodes($"//*[@id=\"card_grid\"]/div[{index}]/div/div/div[3]/div[2]/div/p[2]/text()");
 
                   Product prod = new Product();
-                  prod.Date = DateTime.Now.Date;
+                  prod.Price.Date = DateTime.Now.Date;
 
                   if (titleNodes != null) {
                      prod.Name = titleNodes.FirstOrDefault().Attributes["title"].Value;
                   }
                   if (oldPriceNodes != null) {
-                     prod.OldPrice = Convert.ToInt32(oldPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", "").Trim());
+                     prod.Price.OldPrice = Convert.ToInt32(oldPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", "").Trim());
                   }
                   if(newPriceNodes != null) {
-                     prod.NewPrice = Convert.ToInt32(newPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", "").Trim());
+                     prod.Price.NewPrice = Convert.ToInt32(newPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", "").Trim());
                   }
 
                   products.Add(prod);
