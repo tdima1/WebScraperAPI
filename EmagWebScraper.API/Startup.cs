@@ -11,10 +11,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using WebScraper.Data.Data;
+using WebScraper.Data;
 using WebScraper.Data.Data.Contexts;
 
-namespace WebScraper.API
+namespace EmagWebScraper.API
 {
    public class Startup
    {
@@ -30,7 +30,6 @@ namespace WebScraper.API
       {
          services.AddControllers();
          services.AddDbContext<ProductContext>(ctx => ctx.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
          services.AddScoped<IProductRepository, ProductRepository>();
       }
 

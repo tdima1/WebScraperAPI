@@ -5,11 +5,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using WebScraper.API.Data.Entities;
+using WebScraper.Data.Data.Entities;
 
 namespace WebScraper
 {
-   public class WebScraper
+   public class Scraper
    {
       public async Task<IEnumerable<Product>> Crawl()
       {
@@ -23,7 +23,7 @@ namespace WebScraper
             var htmlDocument = new HtmlDocument();
 
             htmlDocument.LoadHtml(html);
-            List<HtmlNode> divsCardSection = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Contains("card-section-wrapper")).ToList();
+            //List<HtmlNode> divsCardSection = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Contains("card-section-wrapper")).ToList();
             //List<HtmlNode> divsCardSectionBtm = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Contains("card-section-btm")).ToList();
 
             try {
@@ -33,21 +33,23 @@ namespace WebScraper
                   var newPriceNodes = htmlDocument.DocumentNode.SelectNodes($"//*[@id=\"card_grid\"]/div[{index}]/div/div/div[3]/div[2]/div/p[2]/text()");
 
                   Product prod = new Product();
-                  prod.Price.Date = DateTime.Now.Date;
+                  Price price = new Price();
+                  price.Date = DateTime.Now.Date;
 
-                  if (titleNodes != null) {
+                  if(titleNodes != null) {
                      prod.Name = titleNodes.FirstOrDefault().Attributes["title"].Value;
                   }
-                  if (oldPriceNodes != null) {
-                     prod.Price.OldPrice = Convert.ToInt32(oldPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", "").Trim());
+                  if(oldPriceNodes != null) {
+                     price.OldPrice = Convert.ToInt32(oldPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", "").Trim());
                   }
                   if(newPriceNodes != null) {
-                     prod.Price.NewPrice = Convert.ToInt32(newPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", "").Trim());
+                     price.NewPrice = Convert.ToInt32(newPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", "").Trim());
                   }
 
+                  prod.Prices.Add(price);
                   products.Add(prod);
                }
-            } catch(Exception e) {
+            } catch(Exception) {
                //throw e;
             }
          }

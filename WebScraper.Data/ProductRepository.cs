@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebScraper.API.Data.Entities;
 using WebScraper.Data.Data.Contexts;
+using WebScraper.Data.Data.Entities;
 
-namespace WebScraper.Data.Data
+namespace WebScraper.Data
 {
    public class ProductRepository : IProductRepository
    {
@@ -55,7 +55,7 @@ namespace WebScraper.Data.Data
       public IEnumerable<Product> GetProducts()
       {
          return from p in _context.Products
-                orderby _context.PricesForProduct.Find(p.Id).NewPrice
+                orderby p.Name
                 select p;
       }
    }

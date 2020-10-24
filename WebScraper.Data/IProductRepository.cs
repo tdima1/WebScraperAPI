@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebScraper.API.Data.Entities;
+using WebScraper.Data.Data.Entities;
 
-namespace WebScraper.Data.Data
+namespace WebScraper.Data
 {
    public interface IProductRepository
    {

@@ -15,13 +15,13 @@ namespace WebScraper.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("WebScraper.API.Data.Entities.Product", b =>
+            modelBuilder.Entity("WebScraper.Data.Data.Entities.Price", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PriceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -29,15 +29,32 @@ namespace WebScraper.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("NewPrice")
                         .HasColumnType("int");
 
                     b.Property<int>("OldPrice")
                         .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PriceId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Price");
+                });
+
+            modelBuilder.Entity("WebScraper.Data.Data.Entities.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -47,11 +64,17 @@ namespace WebScraper.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Default Entity",
-                            NewPrice = 0,
-                            OldPrice = 0
+                            Name = "Default Entity"
                         });
+                });
+
+            modelBuilder.Entity("WebScraper.Data.Data.Entities.Price", b =>
+                {
+                    b.HasOne("WebScraper.Data.Data.Entities.Product", null)
+                        .WithMany("Prices")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

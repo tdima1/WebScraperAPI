@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebScraper.API.Data.Entities;
+using WebScraper.Data.Data.Entities;
 
 namespace WebScraper.Data.Data.Contexts
 {
@@ -13,7 +13,6 @@ namespace WebScraper.Data.Data.Contexts
    {
       private readonly IConfiguration _config;
       public DbSet<Product> Products { get; set; }
-      public DbSet<Price> PricesForProduct { get; set; }
 
       public ProductContext(DbContextOptions options, IConfiguration config) : base(options)
       {
