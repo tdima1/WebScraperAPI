@@ -15,19 +15,23 @@ namespace EmagWebScraper.API.Controllers
    public class ProductController : ControllerBase
    {
       Scraper _scraper = new Scraper();
-      private readonly IProductRepository productRepository;
+      private readonly IProductRepository _productRepository;
 
-      public ProductController(IProductRepository _productRepository)
+      public ProductController(IProductRepository productRepository)
       {
-         productRepository = _productRepository;
+         _productRepository = productRepository;
       }
 
       // GET: api/Product
       [HttpGet]
       public async Task<IActionResult> Get()
       {
-         IEnumerable<Product> products = await _scraper.Crawl();
-         return Ok("we did it bois");
+         //IEnumerable<Product> products = await _scraper.Crawl();
+         //_productRepository.Add(products);
+
+         var products = _productRepository.GetProducts();
+
+         return Ok(products);
       }
 
       // GET: api/Product/5

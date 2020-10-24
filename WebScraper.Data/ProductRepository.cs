@@ -54,9 +54,10 @@ namespace WebScraper.Data
 
       public IEnumerable<Product> GetProducts()
       {
-         return from p in _context.Products
-                orderby p.Name
-                select p;
+         return from prod in _context.Products
+                   from price in _context.Prices
+                     where prod.Id == price.ProductId
+                       select new Product { Id = prod.Id, Name = prod.Name, Price = price };
       }
    }
 }

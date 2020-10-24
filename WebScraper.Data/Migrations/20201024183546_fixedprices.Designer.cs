@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebScraper.Data.Data.Contexts;
 
 namespace WebScraper.Data.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    partial class ProductContextModelSnapshot : ModelSnapshot
+    [Migration("20201024183546_fixedprices")]
+    partial class fixedprices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,10 +48,9 @@ namespace WebScraper.Data.Migrations
 
                     b.HasKey("PriceId");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("Prices");
+                    b.ToTable("Price");
                 });
 
             modelBuilder.Entity("WebScraper.Data.Data.Entities.Product", b =>
@@ -78,8 +79,8 @@ namespace WebScraper.Data.Migrations
             modelBuilder.Entity("WebScraper.Data.Data.Entities.Price", b =>
                 {
                     b.HasOne("WebScraper.Data.Data.Entities.Product", null)
-                        .WithOne("Price")
-                        .HasForeignKey("WebScraper.Data.Data.Entities.Price", "ProductId")
+                        .WithMany("Prices")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

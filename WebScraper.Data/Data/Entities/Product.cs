@@ -11,12 +11,12 @@ namespace WebScraper.Data.Data.Entities
    {
       public Product()
       {
-         Prices = new List<Price>();
+         Price = new Price();
       }
 
       public int Id { get; set; }
       [Required]
       public string Name { get; set; }
-      public List<Price> Prices { get; set; }
+      public Price Price { get; set; }
    }
 }

@@ -46,8 +46,12 @@ namespace WebScraper
                      price.NewPrice = Convert.ToInt32(newPriceNodes.FirstOrDefault().GetDirectInnerText().Replace("&#46;", "").Trim());
                   }
 
-                  prod.Prices.Add(price);
+                  price.PriceDifferenceInValue = price.OldPrice - price.NewPrice;
+                  price.PriceDifferenceInPercentage = (int)(((double)price.PriceDifferenceInValue / price.OldPrice) * 100);
+
+                  prod.Price = price;
                   products.Add(prod);
+
                }
             } catch(Exception) {
                //throw e;

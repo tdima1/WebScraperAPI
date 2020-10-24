@@ -167,6 +167,18 @@
     <Compile Include="Migrations\20201024150929_InitialMigration.designer.cs">
       <DependentUpon>20201024150929_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20201024182412_PriceDifferences.cs" />
+    <Compile Include="Migrations\20201024182412_PriceDifferences.designer.cs">
+      <DependentUpon>20201024182412_PriceDifferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201024183546_fixedprices.cs" />
+    <Compile Include="Migrations\20201024183546_fixedprices.designer.cs">
+      <DependentUpon>20201024183546_fixedprices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201024192121_fixedcontext.cs" />
+    <Compile Include="Migrations\20201024192121_fixedcontext.designer.cs">
+      <DependentUpon>20201024192121_fixedcontext.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ProductContextModelSnapshot.cs" />
     <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
