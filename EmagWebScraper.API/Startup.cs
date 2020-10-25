@@ -30,7 +30,7 @@ namespace EmagWebScraper.API
       {
          services.AddControllers();
          services.AddDbContext<ProductContext>(ctx => ctx.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-         services.AddScoped<IProductRepository, ProductRepository>();
+         services.AddTransient<IProductRepository, ProductRepository>();
       }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

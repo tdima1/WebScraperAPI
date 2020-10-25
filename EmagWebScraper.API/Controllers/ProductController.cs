@@ -24,11 +24,8 @@ namespace EmagWebScraper.API.Controllers
 
       // GET: api/Product
       [HttpGet]
-      public async Task<IActionResult> Get()
+      public IActionResult Get()
       {
-         //IEnumerable<Product> products = await _scraper.Crawl();
-         //_productRepository.Add(products);
-
          var products = _productRepository.GetProducts();
 
          return Ok(products);
@@ -36,15 +33,24 @@ namespace EmagWebScraper.API.Controllers
 
       // GET: api/Product/5
       [HttpGet("{id}", Name = "Get")]
-      public string Get(int id)
+      public IActionResult Get(int id)
       {
-         return "value";
+         var prices = _productRepository.GetPriceHistoryForProductId(id);
+
+         return Ok(prices);
       }
 
       // POST: api/Product
+      /// <summary>
+      /// Should crawl for new entries in the database
+      /// unless the crawler has been executed today.
+      /// </summary>
+      /// <param name="date"></param>
       [HttpPost]
-      public void Post([FromBody] string value)
+      public void Post([FromBody] string date)
       {
+         IEnumerable<Product> products = _scraper.Crawl().Result;
+         _productRepository.Add(products);
       }
 
       // PUT: api/Product/5

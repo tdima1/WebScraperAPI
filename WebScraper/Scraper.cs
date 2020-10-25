@@ -17,7 +17,8 @@ namespace WebScraper
 
          for(int i = 1; i <= 10; i++) {
 
-            string url = $"https://www.emag.ro/desktop-pc/p{i}/c";
+            //string url = $"https://www.emag.ro/desktop-pc/p{i}/c";
+            string url = $"https://www.emag.ro/laptopuri/p{i}/c";
             var httpClient = new HttpClient();
             var html = await httpClient.GetStringAsync(url);
             var htmlDocument = new HtmlDocument();

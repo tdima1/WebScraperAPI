@@ -28,7 +28,20 @@ namespace WebScraper.Data
       {
          foreach(Product p in products) {
             if(p.Name != null) {
-               _context.Add(p);
+
+               Product existingProduct = _context.Products.ToList().Where(prod => prod.Name == p.Name).FirstOrDefault();
+
+               if(existingProduct == null) {
+                  _context.Add(p);
+                  _context.SaveChanges();
+               } else {
+                  p.Price.ProductId = existingProduct.Id;
+
+                  if(!_context.Prices.ToList().Contains(p.Price)) {
+                     _context.Prices.Add(p.Price);
+                     _context.SaveChanges();
+                  }
+               }
             }
          }
          _context.SaveChanges();
@@ -55,9 +68,16 @@ namespace WebScraper.Data
       public IEnumerable<Product> GetProducts()
       {
          return from prod in _context.Products
-                   from price in _context.Prices
-                     where prod.Id == price.ProductId
-                       select new Product { Id = prod.Id, Name = prod.Name, Price = price };
+                from price in _context.Prices
+                where prod.Id == price.ProductId
+                select new Product { Id = prod.Id, Name = prod.Name, Price = price };
+      }
+
+      public IEnumerable<Price> GetPriceHistoryForProductId(int productId)
+      {
+         return from price in _context.Prices
+                where price.ProductId == productId
+                select price;
       }
    }
 }

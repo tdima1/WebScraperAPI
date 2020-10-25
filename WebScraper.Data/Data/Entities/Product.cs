@@ -18,5 +18,10 @@ namespace WebScraper.Data.Data.Entities
       [Required]
       public string Name { get; set; }
       public Price Price { get; set; }
+
+      public override bool Equals(object obj)
+      {
+         return this.Name.ToLower() == (obj as Product).Name.ToLower();
+      }
    }
 }

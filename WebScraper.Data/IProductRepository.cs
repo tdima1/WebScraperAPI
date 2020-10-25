@@ -15,5 +15,6 @@ namespace WebScraper.Data
       void Delete(int Id);
       IEnumerable<Product> GetProducts();
       Product FindById(int Id);
+      IEnumerable<Price> GetPriceHistoryForProductId(int productId);
    }
 }
